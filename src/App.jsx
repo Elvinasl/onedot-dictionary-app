@@ -1,21 +1,30 @@
 import React from 'react';
-import Datasets from './Datasets';
-import DatasetTable from './components/DatasetTable';
+import DictionariesTable from './components/DictionariesTable';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      dataset: Datasets.original,
+      dictionaries: [
+        {
+          domain: 'Test 1',
+          range: 'rest2',
+        },
+      ],
     };
   }
 
 
   render() {
-    const { dataset } = this.state;
+    const { dictionaries } = this.state;
     return (
-      <DatasetTable dataset={dataset} />
+      <>
+        <h1>Available dictionaries</h1>
+        {dictionaries.length > 0 ? <DictionariesTable dictionaries={dictionaries} /> : 'No dictionaries created yet...'}
+        <h1>Create dictionary:</h1>
+
+      </>
     );
   }
 }
