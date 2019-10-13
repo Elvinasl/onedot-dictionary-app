@@ -1,6 +1,6 @@
 import React from 'react';
-import DictionariesTable from './components/DictionariesTable';
 import Datasets from './Datasets';
+import DatasetTable from './components/DatasetTable';
 
 class App extends React.Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class App extends React.Component {
   render() {
     const { dataset } = this.state;
     return (
-      <DictionariesTable dataset={dataset} />
+      <DatasetTable dataset={dataset} />
     );
   }
 }
