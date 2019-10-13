@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class DictionariesTable extends React.Component {
   render() {
-    const { dictionaries } = this.props;
+    const { rowData } = this.props;
     return (
       <table>
         <thead>
@@ -13,7 +13,7 @@ class DictionariesTable extends React.Component {
           </tr>
         </thead>
         <tbody>
-          {dictionaries.map((row) => (
+          {rowData.map((row) => (
             <tr key={row.domain}>
               <td>{row.domain}</td>
               <td>{row.range}</td>
@@ -26,9 +26,9 @@ class DictionariesTable extends React.Component {
 }
 
 DictionariesTable.propTypes = {
-  dictionaries: PropTypes.arrayOf(
+  rowData: PropTypes.arrayOf(
     PropTypes.shape({
-      domani: PropTypes.string,
+      domain: PropTypes.string,
       range: PropTypes.string,
     }),
   ).isRequired,

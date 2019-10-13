@@ -7,17 +7,17 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      dictionaries: [
-        {
-          domain: 'Test 1',
-          range: 'rest2',
-        },
-      ],
+      dictionaries: [],
     };
+
+    this.handleNewDictionary = this.handleNewDictionary.bind(this);
   }
 
   handleNewDictionary(rows) {
-    console.log('callback: ', rows);
+    const { dictionaries } = this.state;
+    dictionaries.push(rows);
+    this.setState({ dictionaries });
+    console.log('callback: ', this.state);
   }
 
 
@@ -26,7 +26,10 @@ class App extends React.Component {
     return (
       <>
         <h1>Available dictionaries</h1>
-        {dictionaries.length > 0 ? <DictionariesTable dictionaries={dictionaries} /> : 'No dictionaries created yet...'}
+        {dictionaries.length === 0 && 'No dictionaries created yet...'}
+        {dictionaries.map((rowData) => (
+          <DictionariesTable key={rowData[0].domain + rowData[rowData[0].range]} rowData={rowData} />
+        ))}
         <h1>Create dictionary:</h1>
         <NewDictionaryTable callback={this.handleNewDictionary} />
       </>
