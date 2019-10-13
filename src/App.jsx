@@ -11,13 +11,20 @@ class App extends React.Component {
     };
 
     this.handleNewDictionary = this.handleNewDictionary.bind(this);
+    this.handleDeleteDictionary = this.handleDeleteDictionary.bind(this);
   }
 
   handleNewDictionary(rows) {
     const { dictionaries } = this.state;
     dictionaries.push(rows);
     this.setState({ dictionaries });
-    console.log('callback: ', this.state);
+  }
+
+  handleDeleteDictionary(index) {
+    this.setState((prevState) => ({
+      dictionaries: prevState.dictionaries
+        .filter((dictionary) => index !== prevState.dictionaries.indexOf(dictionary)),
+    }));
   }
 
 
@@ -27,8 +34,13 @@ class App extends React.Component {
       <>
         <h1>Available dictionaries</h1>
         {dictionaries.length === 0 && 'No dictionaries created yet...'}
-        {dictionaries.map((rowData) => (
-          <DictionariesTable key={rowData[0].domain + rowData[rowData[0].range]} rowData={rowData} />
+        {dictionaries.map((rowData, rowIndex) => (
+          <DictionariesTable
+            key={rowData + rowIndex}
+            index={rowIndex}
+            rowData={rowData}
+            onDelete={this.handleDeleteDictionary}
+          />
         ))}
         <h1>Create dictionary:</h1>
         <NewDictionaryTable callback={this.handleNewDictionary} />
