@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class NewDictionaryTable extends React.Component {
+class NewOrEditDictionaryTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      rows: [],
+      rows: props.rows.length > 0 ? props.rows : [],
     };
 
     this.onAddRowClick = this.onAddRowClick.bind(this);
-    this.onCreate = this.onCreate.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -34,7 +34,7 @@ class NewDictionaryTable extends React.Component {
     this.updateRowData(id, 'range', event.target.value);
   }
 
-  onCreate() {
+  onSubmit() {
     const { rows } = this.state;
     const { callback } = this.props;
     callback(rows);
@@ -95,14 +95,25 @@ class NewDictionaryTable extends React.Component {
         </table>
         <button type="button" onClick={this.onAddRowClick}> Add row </button>
         <br />
-        <button type="button" onClick={this.onCreate}> Create dictionary </button>
+        <button type="button" onClick={this.onSubmit}> Save dictionary </button>
       </>
     );
   }
 }
 
-NewDictionaryTable.propTypes = {
+NewOrEditDictionaryTable.propTypes = {
   callback: PropTypes.func.isRequired,
+  rows: PropTypes.arrayOf(
+    PropTypes.shape({
+      domain: PropTypes.string,
+      range: PropTypes.string,
+    }),
+  ),
 };
 
-export default NewDictionaryTable;
+// Specifies the default values for props:
+NewOrEditDictionaryTable.defaultProps = {
+  rows: [],
+};
+
+export default NewOrEditDictionaryTable;

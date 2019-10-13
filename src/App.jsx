@@ -1,6 +1,6 @@
 import React from 'react';
 import DictionariesTable from './components/DictionariesTable';
-import NewDictionaryTable from './components/NewDictionaryTable';
+import NewOrEditDictionaryTable from './components/NewOrEditDictionaryTable';
 
 class App extends React.Component {
   constructor(props) {
@@ -43,7 +43,7 @@ class App extends React.Component {
           />
         ))}
         <h1>Create dictionary:</h1>
-        <NewDictionaryTable callback={this.handleNewDictionary} />
+        <NewOrEditDictionaryTable callback={this.handleNewDictionary} />
       </>
     );
   }
