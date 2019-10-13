@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 
 class DictionariesTable extends React.Component {
   render() {
-    const { rowData, onDelete, index } = this.props;
+    const {
+      rowData, onDelete, index, onEdit,
+    } = this.props;
     return (
       <>
         <table>
@@ -26,6 +28,10 @@ class DictionariesTable extends React.Component {
         Delete this dictionary:
           <button type="button" onClick={() => onDelete(index)}>Delete</button>
         </p>
+        <p>
+          Edit this dictionary:
+          <button type="button" onClick={() => onEdit(rowData)}>Edit</button>
+        </p>
       </>
     );
   }
@@ -39,6 +45,7 @@ DictionariesTable.propTypes = {
     }),
   ).isRequired,
   onDelete: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
 };
 

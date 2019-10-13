@@ -13,7 +13,11 @@ class NewOrEditDictionaryTable extends React.Component {
   }
 
   componentDidMount() {
-    this.onAddRowClick();
+    const { rows } = this.props;
+    if (!rows.length > 0) {
+      // only add new row if we are not editing
+      this.onAddRowClick();
+    }
   }
 
   onAddRowClick() {

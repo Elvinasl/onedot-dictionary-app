@@ -7,11 +7,22 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      dictionaries: [],
+      editDictionaryData: null,
+      dictionaries: [
+        [
+          {
+            id: 99,
+            domain: 'elvis test',
+            range: 'elvis range test',
+          },
+        ],
+      ],
     };
 
     this.handleNewDictionary = this.handleNewDictionary.bind(this);
     this.handleDeleteDictionary = this.handleDeleteDictionary.bind(this);
+    this.handleEditDictionaryClick = this.handleEditDictionaryClick.bind(this);
+    this.handleEditDictionary = this.handleEditDictionary.bind(this);
   }
 
   handleNewDictionary(rows) {
@@ -27,9 +38,19 @@ class App extends React.Component {
     }));
   }
 
+  handleEditDictionaryClick(rowData) {
+    this.setState({
+      editDictionaryData: rowData,
+    });
+  }
+
+  handleEditDictionary(rowData) {
+    console.log('edit dic sent back this data: ', rowData);
+  }
+
 
   render() {
-    const { dictionaries } = this.state;
+    const { dictionaries, editDictionaryData } = this.state;
     return (
       <>
         <h1>Available dictionaries</h1>
@@ -40,8 +61,15 @@ class App extends React.Component {
             index={rowIndex}
             rowData={rowData}
             onDelete={this.handleDeleteDictionary}
+            onEdit={this.handleEditDictionaryClick}
           />
         ))}
+        { editDictionaryData && (
+          <NewOrEditDictionaryTable
+            callback={this.handleEditDictionary}
+            rows={editDictionaryData}
+          />
+        )}
         <h1>Create dictionary:</h1>
         <NewOrEditDictionaryTable callback={this.handleNewDictionary} />
       </>
