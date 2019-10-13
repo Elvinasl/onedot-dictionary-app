@@ -8,7 +8,7 @@ class NewOrEditDictionaryTable extends React.Component {
       rows: props.rows.length > 0 ? props.rows : [],
     };
 
-    this.onAddRowClick = this.onAddRowClick.bind(this);
+    this.addRow = this.addRow.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
@@ -16,18 +16,8 @@ class NewOrEditDictionaryTable extends React.Component {
     const { rows } = this.props;
     if (!rows.length > 0) {
       // only add new row if we are not editing
-      this.onAddRowClick();
+      this.addRow();
     }
-  }
-
-  onAddRowClick() {
-    const { rows } = this.state;
-    rows.push({
-      domain: '',
-      range: '',
-      id: this.getNextId(),
-    });
-    this.setState({ rows });
   }
 
   onDomainChange(event, id) {
@@ -57,6 +47,16 @@ class NewOrEditDictionaryTable extends React.Component {
       }
     });
     return max + 1;
+  }
+
+  addRow() {
+    const { rows } = this.state;
+    rows.push({
+      domain: '',
+      range: '',
+      id: this.getNextId(),
+    });
+    this.setState({ rows });
   }
 
   // updates row data based on id of the row
@@ -97,7 +97,7 @@ class NewOrEditDictionaryTable extends React.Component {
             ))}
           </tbody>
         </table>
-        <button type="button" onClick={this.onAddRowClick}> Add row </button>
+        <button type="button" onClick={this.addRow}> Add row </button>
         <br />
         <button type="button" onClick={this.onSubmit}> Save dictionary </button>
       </>
