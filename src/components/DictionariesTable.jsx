@@ -30,7 +30,7 @@ class DictionariesTable extends React.Component {
         </p>
         <p>
           Edit this dictionary:
-          <button type="button" onClick={() => onEdit(rowData)}>Edit</button>
+          <button type="button" onClick={() => onEdit(rowData, index)}>Edit</button>
         </p>
       </>
     );

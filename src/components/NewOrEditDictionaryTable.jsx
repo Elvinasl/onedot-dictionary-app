@@ -40,8 +40,8 @@ class NewOrEditDictionaryTable extends React.Component {
 
   onSubmit() {
     const { rows } = this.state;
-    const { callback } = this.props;
-    callback(rows);
+    const { callback, dictionaryIndex } = this.props;
+    callback(rows, dictionaryIndex);
   }
 
   getNextId() {
@@ -113,11 +113,13 @@ NewOrEditDictionaryTable.propTypes = {
       range: PropTypes.string,
     }),
   ),
+  dictionaryIndex: PropTypes.number,
 };
 
 // Specifies the default values for props:
 NewOrEditDictionaryTable.defaultProps = {
   rows: [],
+  dictionaryIndex: null,
 };
 
 export default NewOrEditDictionaryTable;
