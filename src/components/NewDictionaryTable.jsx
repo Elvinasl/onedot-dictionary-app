@@ -9,6 +9,7 @@ class NewDictionaryTable extends React.Component {
     };
 
     this.onAddRowClick = this.onAddRowClick.bind(this);
+    this.onCreate = this.onCreate.bind(this);
   }
 
   componentDidMount() {
@@ -25,18 +26,24 @@ class NewDictionaryTable extends React.Component {
     this.setState({ rows });
   }
 
-  onDomainChange(event, index) {
-    this.updateRowData(index, 'domain', event.target.value);
+  onDomainChange(event, id) {
+    this.updateRowData(id, 'domain', event.target.value);
   }
 
-  onRangeChange(event, index) {
-    this.updateRowData(index, 'range', event.target.value);
+  onRangeChange(event, id) {
+    this.updateRowData(id, 'range', event.target.value);
+  }
+
+  onCreate() {
+    const { rows } = this.state;
+    const { callback } = this.props;
+    callback(rows);
   }
 
   getNextId() {
     const { rows } = this.state;
     if (rows.length === 0) {
-      return 1;
+      return 0;
     }
     // getting the highest id
     let max = 0;
@@ -63,10 +70,6 @@ class NewDictionaryTable extends React.Component {
     }));
   }
 
-  onCreate() {
-    console.log('create click');
-  }
-
   render() {
     const { rows } = this.state;
     return (
@@ -83,8 +86,8 @@ class NewDictionaryTable extends React.Component {
               // I know its not good, but for this exercise it is not necessary to generate uuid.
               // eslint-disable-next-line react/no-array-index-key
               <tr key={i}>
-                <td><input type="text" onChange={(e) => this.onDomainChange(e, i)} /></td>
-                <td><input type="text" onChange={(e) => this.onRangeChange(e, i)} /></td>
+                <td><input type="text" value={row.domain} onChange={(e) => this.onDomainChange(e, row.id)} /></td>
+                <td><input type="text" value={row.range} onChange={(e) => this.onRangeChange(e, row.id)} /></td>
                 <td><button type="button" onClick={() => this.deleteRow(row.id)}>Delete</button></td>
               </tr>
             ))}
@@ -99,6 +102,7 @@ class NewDictionaryTable extends React.Component {
 }
 
 NewDictionaryTable.propTypes = {
+  callback: PropTypes.func.isRequired,
 };
 
 export default NewDictionaryTable;
