@@ -11,12 +11,16 @@ class NewDictionaryTable extends React.Component {
     this.onAddRowClick = this.onAddRowClick.bind(this);
   }
 
+  componentDidMount() {
+    this.onAddRowClick();
+  }
+
   onAddRowClick() {
     const { rows } = this.state;
     rows.push({
       domain: '',
       range: '',
-      id: rows.length,
+      id: this.getNextId(),
     });
     this.setState({ rows });
   }
@@ -29,6 +33,21 @@ class NewDictionaryTable extends React.Component {
     this.updateRowData(index, 'range', event.target.value);
   }
 
+  getNextId() {
+    const { rows } = this.state;
+    if (rows.length === 0) {
+      return 1;
+    }
+    // getting the highest id
+    let max = 0;
+    rows.forEach((row) => {
+      if (row.id > max) {
+        max = row.id;
+      }
+    });
+    return max + 1;
+  }
+
   // updates row data based on id of the row
   updateRowData(id, key, value) {
     this.setState((prevState) => ({
@@ -38,9 +57,18 @@ class NewDictionaryTable extends React.Component {
     }));
   }
 
+  deleteRow(id) {
+    this.setState((prevState) => ({
+      rows: prevState.rows.filter((row) => parseInt(row.id, 10) !== id),
+    }));
+  }
+
+  onCreate() {
+    console.log('create click');
+  }
+
   render() {
     const { rows } = this.state;
-    console.log(rows);
     return (
       <>
         <table>
@@ -57,23 +85,20 @@ class NewDictionaryTable extends React.Component {
               <tr key={i}>
                 <td><input type="text" onChange={(e) => this.onDomainChange(e, i)} /></td>
                 <td><input type="text" onChange={(e) => this.onRangeChange(e, i)} /></td>
+                <td><button type="button" onClick={() => this.deleteRow(row.id)}>Delete</button></td>
               </tr>
             ))}
           </tbody>
         </table>
         <button type="button" onClick={this.onAddRowClick}> Add row </button>
+        <br />
+        <button type="button" onClick={this.onCreate}> Create dictionary </button>
       </>
     );
   }
 }
 
 NewDictionaryTable.propTypes = {
-  // dictionaries: PropTypes.arrayOf(
-  //     PropTypes.shape({
-  //         domani: PropTypes.string,
-  //         range: PropTypes.string,
-  //     }),
-  // ).isRequired,
 };
 
 export default NewDictionaryTable;
