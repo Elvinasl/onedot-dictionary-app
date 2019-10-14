@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import DictionaryValidator from "../Validators/DictionaryValidator";
 
 class NewOrEditDictionaryTable extends React.Component {
   constructor(props) {
@@ -49,8 +50,7 @@ class NewOrEditDictionaryTable extends React.Component {
 
   onValidate() {
     const { rows } = this.state;
-
-    const rowKeysValidated = this.validateDuplicateKeys(rows, 'domain');
+    const rowKeysValidated = DictionaryValidator.validateDuplicateKeys(rows, 'domain');
     console.log(rowKeysValidated);
   }
 
@@ -92,30 +92,6 @@ class NewOrEditDictionaryTable extends React.Component {
     this.setState((prevState) => ({
       rows: prevState.rows.filter((row) => parseInt(row.id, 10) !== id),
     }));
-  }
-
-  validateDuplicateKeys(rows, key) {
-    const allDomains = rows.map((row) => row[key]);
-
-    rows.forEach((row) => {
-      if (this.countInArray(allDomains, row[key]) >= 2) {
-        // eslint-disable-next-line no-param-reassign
-        row.validation = `duplicate ${key}!`;
-      }
-    });
-    return rows;
-  }
-
-
-  // calculates number of the same entries in the given array
-  countInArray(array, needle) {
-    let timesExists = 0;
-    for (let i = 0; i < array.length; i += 1) {
-      if (array[i] === needle) {
-        timesExists += 1;
-      }
-    }
-    return timesExists;
   }
 
   render() {
