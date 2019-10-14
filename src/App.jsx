@@ -67,7 +67,7 @@ class App extends React.Component {
         {dictionaries.length === 0 && 'No dictionaries created yet...'}
         {dictionaries.map((rowData, rowIndex) => (
           <DictionariesTable
-            key={rowData + rowIndex}
+            key={rowData.id + rowIndex}
             index={rowIndex}
             rowData={rowData}
             onDelete={this.handleDeleteDictionary}

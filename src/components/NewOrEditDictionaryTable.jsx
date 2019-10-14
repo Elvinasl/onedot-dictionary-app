@@ -5,11 +5,24 @@ class NewOrEditDictionaryTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      rows: props.rows.length > 0 ? props.rows : [],
+      // rows: props.rows.length > 0 ? props.rows : [],
+      rows: [
+        {
+          domain: 'a',
+          range: 'b',
+          id: 1,
+        },
+        {
+          domain: 'a',
+          range: 'b1',
+          id: 2,
+        },
+      ],
     };
 
     this.addRow = this.addRow.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onValidate = this.onValidate.bind(this);
   }
 
   componentDidMount() {
@@ -32,6 +45,13 @@ class NewOrEditDictionaryTable extends React.Component {
     const { rows } = this.state;
     const { callback, dictionaryIndex } = this.props;
     callback(rows, dictionaryIndex);
+  }
+
+  onValidate() {
+    const { rows } = this.state;
+
+    const rowKeysValidated = this.validateDuplicateKeys(rows, 'domain');
+    console.log(rowKeysValidated);
   }
 
   getNextId() {
@@ -74,6 +94,30 @@ class NewOrEditDictionaryTable extends React.Component {
     }));
   }
 
+  validateDuplicateKeys(rows, key) {
+    const allDomains = rows.map((row) => row[key]);
+
+    rows.forEach((row) => {
+      if (this.countInArray(allDomains, row[key]) >= 2) {
+        // eslint-disable-next-line no-param-reassign
+        row.validation = `duplicate ${key}!`;
+      }
+    });
+    return rows;
+  }
+
+
+  // calculates number of the same entries in the given array
+  countInArray(array, needle) {
+    let timesExists = 0;
+    for (let i = 0; i < array.length; i += 1) {
+      if (array[i] === needle) {
+        timesExists += 1;
+      }
+    }
+    return timesExists;
+  }
+
   render() {
     const { rows } = this.state;
     return (
@@ -83,6 +127,7 @@ class NewOrEditDictionaryTable extends React.Component {
             <tr>
               <th>Domain</th>
               <th>Range</th>
+              <th>&nbsp;</th>
             </tr>
           </thead>
           <tbody>
@@ -93,6 +138,7 @@ class NewOrEditDictionaryTable extends React.Component {
                 <td><input type="text" value={row.domain} onChange={(e) => this.onDomainChange(e, row.id)} /></td>
                 <td><input type="text" value={row.range} onChange={(e) => this.onRangeChange(e, row.id)} /></td>
                 <td><button type="button" onClick={() => this.deleteRow(row.id)}>Delete</button></td>
+                <td />
               </tr>
             ))}
           </tbody>
@@ -100,6 +146,8 @@ class NewOrEditDictionaryTable extends React.Component {
         <button type="button" onClick={this.addRow}> Add row </button>
         <br />
         <button type="button" onClick={this.onSubmit}> Save dictionary </button>
+        <br />
+        <button type="button" onClick={this.onValidate}> Validate </button>
       </>
     );
   }
