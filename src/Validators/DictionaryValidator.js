@@ -1,11 +1,11 @@
 class DictionaryValidator {
-  validateDuplicateKeys(rows, key) {
-    const allDomains = rows.map((row) => row[key]);
-
+  validateDuplicates(rows, key, value) {
+    const keyValuePairs = rows.map((row) => row[key] + row[value]);
     rows.forEach((row) => {
-      if (this.countInArray(allDomains, row[key]) >= 2) {
+      const pair = row[key] + row[value];
+      if (this.countInArray(keyValuePairs, pair) > 1) {
         // eslint-disable-next-line no-param-reassign
-        row.validation = `duplicate ${key}!`;
+        row.validation = `duplicate ${pair}!`;
       }
     });
     return rows;
