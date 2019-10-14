@@ -50,8 +50,8 @@ class NewOrEditDictionaryTable extends React.Component {
 
   onValidate() {
     const { rows } = this.state;
-    const duplicatePairs = DictionaryValidator.validateDuplicates(rows, 'domain', 'range');
-    console.log(duplicatePairs);
+    const validatedRows = DictionaryValidator.validateAll(rows);
+    console.log(validatedRows);
   }
 
   getNextId() {
