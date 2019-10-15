@@ -13,6 +13,8 @@ class DictionaryValidator {
       const pair = row[key] + row[value];
       if (this.countInArray(keyValuePairs, pair) > 1) {
         Object.assign(row, { ...row, validation: `duplicate ${pair}!` });
+      } else {
+        this.formatValidRow(row);
       }
     });
     return rows;
@@ -27,6 +29,8 @@ class DictionaryValidator {
       if (this.countInArray(allDomains, row.domain) > 1) {
         // duplicate domain here!
         duplicateDomainRows.push(row);
+      } else {
+        this.formatValidRow(row);
       }
     });
     const duplicatePairs = duplicateDomainRows.map((row) => row.domain + row.range);
@@ -37,6 +41,8 @@ class DictionaryValidator {
       if (this.countInArray(duplicatePairs, pair) === 1) {
         // this duplicate domain different range
         Object.assign(row, { ...row, validation: `fork ${row.range}!` });
+      } else {
+        this.formatValidRow(row);
       }
     });
     return rows;
@@ -49,6 +55,8 @@ class DictionaryValidator {
     rows.forEach((row) => {
       if (domains.includes(row.range) && ranges.includes(row.domain)) {
         Object.assign(row, { ...row, validation: `cycle ${row.range}!` });
+      } else {
+        this.formatValidRow(row);
       }
     });
   }
@@ -69,8 +77,14 @@ class DictionaryValidator {
       if (validRanges.includes(row.domain) || validDomains.includes(row.range)) {
         // chain!
         Object.assign(row, { ...row, validation: `chain ${row.domain} - ${row.range}!` });
+      } else {
+        this.formatValidRow(row);
       }
     });
+  }
+
+  formatValidRow(row) {
+    delete row.validation;
   }
 
   // calculates number of the same entries in the given array
