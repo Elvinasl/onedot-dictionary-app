@@ -6,24 +6,8 @@ class NewOrEditDictionaryTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // rows: props.rows.length > 0 ? props.rows : [],
-      rows: [
-        {
-          domain: 'Stonegrey',
-          range: 'Dark Grey',
-          id: 1,
-        },
-        {
-          domain: 'Dark Grey',
-          range: 'Anthracite',
-          id: 2,
-        },
-        {
-          domain: 'Midnight Blue',
-          range: 'Dark Blue',
-          id: 3,
-        },
-      ],
+      rows: props.rows.length > 0 ? props.rows : [],
+      validated: false,
     };
 
     this.addRow = this.addRow.bind(this);
@@ -58,6 +42,7 @@ class NewOrEditDictionaryTable extends React.Component {
     const validatedRows = DictionaryValidator.validateAll(rows);
     this.setState({
       rows: validatedRows,
+      validated: true,
     });
   }
 
@@ -102,7 +87,7 @@ class NewOrEditDictionaryTable extends React.Component {
   }
 
   render() {
-    const { rows } = this.state;
+    const { rows, validated } = this.state;
     return (
       <>
         <table>
@@ -111,6 +96,7 @@ class NewOrEditDictionaryTable extends React.Component {
               <th>Domain</th>
               <th>Range</th>
               <th>&nbsp;</th>
+              { validated && <th>&nbsp;</th> }
             </tr>
           </thead>
           <tbody>
@@ -120,7 +106,7 @@ class NewOrEditDictionaryTable extends React.Component {
                 <td><input type="text" value={row.domain} onChange={(e) => this.onDomainChange(e, row.id)} /></td>
                 <td><input type="text" value={row.range} onChange={(e) => this.onRangeChange(e, row.id)} /></td>
                 <td className="delete-cell"><button type="button" className="btn danger" onClick={() => this.deleteRow(row.id)}>Delete</button></td>
-                <td>{typeof row.validation === 'undefined' ? '' : row.validation}</td>
+                { validated && <td>{typeof row.validation === 'undefined' ? <span className="label success">Valid</span> : <span className="label danger">{row.validation}</span>}</td> }
               </tr>
             ))}
           </tbody>
