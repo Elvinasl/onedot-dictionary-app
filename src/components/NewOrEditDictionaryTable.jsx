@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DictionaryValidator from "../Validators/DictionaryValidator";
+import DictionaryValidator from '../Validators/DictionaryValidator';
 
 class NewOrEditDictionaryTable extends React.Component {
   constructor(props) {
@@ -56,7 +56,9 @@ class NewOrEditDictionaryTable extends React.Component {
   onValidate() {
     const { rows } = this.state;
     const validatedRows = DictionaryValidator.validateAll(rows);
-    console.log(validatedRows);
+    this.setState({
+      rows: validatedRows,
+    });
   }
 
   getNextId() {
@@ -113,13 +115,12 @@ class NewOrEditDictionaryTable extends React.Component {
           </thead>
           <tbody>
             {rows && rows.map((row, i) => (
-              // I know its not good, but for this exercise it is not necessary to generate uuid.
               // eslint-disable-next-line react/no-array-index-key
-              <tr key={i}>
+              <tr key={row.domain + row.range + i}>
                 <td><input type="text" value={row.domain} onChange={(e) => this.onDomainChange(e, row.id)} /></td>
                 <td><input type="text" value={row.range} onChange={(e) => this.onRangeChange(e, row.id)} /></td>
                 <td><button type="button" onClick={() => this.deleteRow(row.id)}>Delete</button></td>
-                <td />
+                <td>{typeof row.validation === 'undefined' ? '+' : row.validation}</td>
               </tr>
             ))}
           </tbody>
