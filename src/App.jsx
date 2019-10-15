@@ -10,15 +10,7 @@ class App extends React.Component {
     this.state = {
       editDictionaryData: null,
       editIndex: null,
-      dictionaries: [
-        [
-          {
-            id: 99,
-            domain: 'elvis test',
-            range: 'elvis range test',
-          },
-        ],
-      ],
+      dictionaries: [],
     };
 
     this.handleNewDictionary = this.handleNewDictionary.bind(this);
@@ -68,7 +60,8 @@ class App extends React.Component {
           {dictionaries.length === 0 && 'No dictionaries created yet...'}
           {dictionaries.map((rowData, rowIndex) => (
             <DictionariesTable
-              key={rowData.id + rowIndex}
+              /* eslint-disable-next-line react/no-array-index-key */
+              key={rowData + rowIndex}
               index={rowIndex}
               rowData={rowData}
               onDelete={this.handleDeleteDictionary}
