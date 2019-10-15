@@ -8,18 +8,18 @@ class DictionariesTable extends React.Component {
     } = this.props;
     return (
       <>
-        <table>
+        <table className="table-container" width="100%">
           <thead>
-            <tr>
-              <th>Domain</th>
-              <th>Range</th>
+            <tr className="flex-table header">
+              <th className="flex-row first">Domain</th>
+              <th className="flex-row">Range</th>
             </tr>
           </thead>
           <tbody>
             {rowData.map((row) => (
-              <tr key={row.domain}>
-                <td>{row.domain}</td>
-                <td>{row.range}</td>
+              <tr className="flex-table row" key={row.domain}>
+                <td className="flex-row first">{row.domain}</td>
+                <td className="flex-row">{row.range}</td>
               </tr>
             ))}
           </tbody>

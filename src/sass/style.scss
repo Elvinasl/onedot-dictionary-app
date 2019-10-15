@@ -1,5 +1,16 @@
-$primary-color: #12ff10;
+@import 'table';
+
+$primary-color: #000000;
+$font-stack:    Roboto, sans-serif;
 
 body {
   color: $primary-color;
+  font: 100% $font-stack;
 }
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+

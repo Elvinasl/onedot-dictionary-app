@@ -62,28 +62,32 @@ class App extends React.Component {
   render() {
     const { dictionaries, editDictionaryData, editIndex } = this.state;
     return (
-      <>
-        <h1>Available dictionaries</h1>
-        {dictionaries.length === 0 && 'No dictionaries created yet...'}
-        {dictionaries.map((rowData, rowIndex) => (
-          <DictionariesTable
-            key={rowData.id + rowIndex}
-            index={rowIndex}
-            rowData={rowData}
-            onDelete={this.handleDeleteDictionary}
-            onEdit={this.handleEditDictionaryClick}
-          />
-        ))}
-        { editDictionaryData && (
-          <NewOrEditDictionaryTable
-            callback={this.handleEditDictionary}
-            rows={editDictionaryData}
-            dictionaryIndex={editIndex}
-          />
-        )}
-        <h1>Create dictionary:</h1>
-        <NewOrEditDictionaryTable callback={this.handleNewDictionary} />
-      </>
+      <div className="container">
+        <div>
+          <h1>Available dictionaries</h1>
+          {dictionaries.length === 0 && 'No dictionaries created yet...'}
+          {dictionaries.map((rowData, rowIndex) => (
+            <DictionariesTable
+              key={rowData.id + rowIndex}
+              index={rowIndex}
+              rowData={rowData}
+              onDelete={this.handleDeleteDictionary}
+              onEdit={this.handleEditDictionaryClick}
+            />
+          ))}
+          { editDictionaryData && (
+            <NewOrEditDictionaryTable
+              callback={this.handleEditDictionary}
+              rows={editDictionaryData}
+              dictionaryIndex={editIndex}
+            />
+          )}
+        </div>
+        <div>
+          <h1>Create dictionary:</h1>
+          <NewOrEditDictionaryTable callback={this.handleNewDictionary} />
+        </div>
+      </div>
     );
   }
 }

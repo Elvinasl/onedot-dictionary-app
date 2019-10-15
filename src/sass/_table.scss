@@ -1,0 +1,30 @@
+$table-header: #1976D2;
+$table-header-border: #1565C0;
+$table-border: #d9d9d9;
+$row-bg: #f4f2f1;
+$header-bg: #1565C0;
+
+.table-container {
+  max-width: 600px;
+  border-collapse: collapse;
+}
+
+td {
+  border: 1px solid $table-border;
+  padding: 0.5em;
+}
+
+th {
+  background: $header-bg;
+  color: white;
+  padding: 0.5em;
+  border: 1px solid $table-header-border;
+}
+
+.flex-row {
+  width: 25%;
+}
+
+.flex-row, .flex-cell {
+  text-align: center;
+}
