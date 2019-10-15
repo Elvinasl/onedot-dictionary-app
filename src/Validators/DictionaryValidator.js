@@ -1,16 +1,16 @@
 class DictionaryValidator {
-    validateAll(rows) {
-        this.validateDuplicates(rows, 'domain', 'range');
-        this.validateForks(rows);
-        return rows;
-    }
+  validateAll(rows) {
+    this.validateDuplicates(rows, 'domain', 'range');
+    this.validateForks(rows);
+    this.validateCycles(rows);
+    return rows;
+  }
 
   validateDuplicates(rows, key, value) {
     const keyValuePairs = rows.map((row) => row[key] + row[value]);
     rows.forEach((row) => {
       const pair = row[key] + row[value];
       if (this.countInArray(keyValuePairs, pair) > 1) {
-        // eslint-disable-next-line no-param-reassign
         row.validation = `duplicate ${pair}!`;
       }
     });
@@ -37,11 +37,21 @@ class DictionaryValidator {
       const pair = row.domain + row.range;
       if (this.countInArray(duplicatePairs, pair) === 1) {
         // this duplicate domain different range
-        // eslint-disable-next-line no-param-reassign
         row.validation = `fork ${row.range}!`;
       }
     });
     return rows;
+  }
+
+  validateCycles(rows) {
+    const domains = rows.map((row) => row.domain);
+    const ranges = rows.map((row) => row.range);
+
+    rows.forEach((row) => {
+      if (domains.includes(row.range) && ranges.includes(row.domain)) {
+        row.validation = `cycle ${row.range}!`;
+      }
+    });
   }
 
   // calculates number of the same entries in the given array

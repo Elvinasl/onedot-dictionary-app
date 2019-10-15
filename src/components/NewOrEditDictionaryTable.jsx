@@ -9,14 +9,19 @@ class NewOrEditDictionaryTable extends React.Component {
       // rows: props.rows.length > 0 ? props.rows : [],
       rows: [
         {
-          domain: 'a',
-          range: 'b',
+          domain: 'Stonegrey',
+          range: 'Dark Grey',
           id: 1,
         },
         {
-          domain: 'a',
-          range: 'b1',
+          domain: 'Dark Grey',
+          range: 'Stonegrey',
           id: 2,
+        },
+        {
+          domain: 'Midnight Blue',
+          range: 'Dark Blue',
+          id: 3,
         },
       ],
     };
