@@ -24,14 +24,10 @@ class DictionariesTable extends React.Component {
             ))}
           </tbody>
         </table>
-        <p>
-        Delete this dictionary:
-          <button type="button" onClick={() => onDelete(index)}>Delete</button>
-        </p>
-        <p>
-          Edit this dictionary:
-          <button type="button" onClick={() => onEdit(rowData, index)}>Edit</button>
-        </p>
+        <div className="container">
+          <button type="button" className="btn danger" onClick={() => onDelete(index)}>Delete dictionary</button>
+          <button type="button" className="btn primary" onClick={() => onEdit(rowData, index)}>Edit dictionary</button>
+        </div>
       </>
     );
   }
