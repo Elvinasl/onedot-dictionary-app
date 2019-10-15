@@ -15,7 +15,7 @@ class NewOrEditDictionaryTable extends React.Component {
         },
         {
           domain: 'Dark Grey',
-          range: 'Stonegrey',
+          range: 'Anthracite',
           id: 2,
         },
         {
