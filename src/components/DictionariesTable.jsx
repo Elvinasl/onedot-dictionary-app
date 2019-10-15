@@ -17,7 +17,7 @@ class DictionariesTable extends React.Component {
           </thead>
           <tbody>
             {rowData.map((row) => (
-              <tr className="flex-table row" key={row.domain}>
+              <tr className="flex-table row" key={row.domain + row.id}>
                 <td className="flex-row first">{row.domain}</td>
                 <td className="flex-row">{row.range}</td>
               </tr>

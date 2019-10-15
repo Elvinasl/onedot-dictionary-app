@@ -100,9 +100,8 @@ class NewOrEditDictionaryTable extends React.Component {
             </tr>
           </thead>
           <tbody>
-            {rows && rows.map((row, i) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <tr key={row.domain + row.range + i}>
+            {rows && rows.map((row) => (
+              <tr key={row.id}>
                 <td><input type="text" value={row.domain} onChange={(e) => this.onDomainChange(e, row.id)} /></td>
                 <td><input type="text" value={row.range} onChange={(e) => this.onRangeChange(e, row.id)} /></td>
                 <td className="delete-cell"><button type="button" className="btn danger" onClick={() => this.deleteRow(row.id)}>Delete</button></td>
