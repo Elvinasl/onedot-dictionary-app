@@ -24,3 +24,14 @@ th {
 .flex-row, .flex-cell {
   text-align: center;
 }
+
+td input {
+  padding: 10px;
+}
+
+.delete-cell {
+  min-width: 70px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}

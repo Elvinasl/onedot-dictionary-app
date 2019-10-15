@@ -8,7 +8,7 @@ class DictionariesTable extends React.Component {
     } = this.props;
     return (
       <>
-        <table className="table-container" width="100%">
+        <table className="table-container">
           <thead>
             <tr className="flex-table header">
               <th className="flex-row first">Domain</th>

@@ -12,13 +12,8 @@ body {
   justify-content: space-around;
 }
 
-.btn {
-  margin: 5px;
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
-  transition: all 0.4s ease 0s;
-  color: white;
+.neutral {
+  background: #6c757d;
 }
 
 .primary {
@@ -31,6 +26,15 @@ body {
 
 .danger {
   background: $danger-color;
+}
+
+.btn {
+  margin: 5px;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  transition: all 0.4s ease 0s;
+  color: white;
 }
 
 .btn:hover {

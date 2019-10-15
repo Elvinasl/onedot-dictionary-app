@@ -119,17 +119,17 @@ class NewOrEditDictionaryTable extends React.Component {
               <tr key={row.domain + row.range + i}>
                 <td><input type="text" value={row.domain} onChange={(e) => this.onDomainChange(e, row.id)} /></td>
                 <td><input type="text" value={row.range} onChange={(e) => this.onRangeChange(e, row.id)} /></td>
-                <td><button type="button" onClick={() => this.deleteRow(row.id)}>Delete</button></td>
-                <td>{typeof row.validation === 'undefined' ? '+' : row.validation}</td>
+                <td className="delete-cell"><button type="button" className="btn danger" onClick={() => this.deleteRow(row.id)}>Delete</button></td>
+                <td>{typeof row.validation === 'undefined' ? '' : row.validation}</td>
               </tr>
             ))}
           </tbody>
         </table>
-        <button type="button" onClick={this.addRow}> Add row </button>
-        <br />
-        <button type="button" onClick={this.onSubmit}> Save dictionary </button>
-        <br />
-        <button type="button" onClick={this.onValidate}> Validate </button>
+        <div className="container">
+          <button type="button" className="btn success" onClick={this.onSubmit}> Save dictionary </button>
+          <button type="button" className="btn primary" onClick={this.onValidate}> Validate </button>
+          <button type="button" className="btn neutral" onClick={this.addRow}> Add row </button>
+        </div>
       </>
     );
   }

@@ -23,6 +23,17 @@ th {
   text-align: center;
 }
 
+td input {
+  padding: 10px;
+}
+
+.delete-cell {
+  min-width: 70px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
 body {
   color: #000000;
   font: 100% Roboto, sans-serif;
@@ -34,13 +45,8 @@ body {
   justify-content: space-around;
 }
 
-.btn {
-  margin: 5px;
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
-  transition: all 0.4s ease 0s;
-  color: white;
+.neutral {
+  background: #6c757d;
 }
 
 .primary {
@@ -53,6 +59,15 @@ body {
 
 .danger {
   background: #ed3330;
+}
+
+.btn {
+  margin: 5px;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  transition: all 0.4s ease 0s;
+  color: white;
 }
 
 .btn:hover {
