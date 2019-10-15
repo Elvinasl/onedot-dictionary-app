@@ -84,6 +84,7 @@ class DictionaryValidator {
   }
 
   formatValidRow(row) {
+    // eslint-disable-next-line no-param-reassign
     delete row.validation;
   }
 
