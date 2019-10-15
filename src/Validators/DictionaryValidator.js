@@ -1,8 +1,8 @@
 class DictionaryValidator {
   validateAll(rows) {
-    // this.validateDuplicates(rows, 'domain', 'range');
-    // this.validateForks(rows);
-    // this.validateCycles(rows);
+    this.validateDuplicates(rows, 'domain', 'range');
+    this.validateForks(rows);
+    this.validateCycles(rows);
     this.validateChains(rows);
     return rows;
   }
@@ -12,7 +12,7 @@ class DictionaryValidator {
     rows.forEach((row) => {
       const pair = row[key] + row[value];
       if (this.countInArray(keyValuePairs, pair) > 1) {
-        row.validation = `duplicate ${pair}!`;
+        Object.assign(row, { ...row, validation: `duplicate ${pair}!` });
       }
     });
     return rows;
@@ -29,8 +29,6 @@ class DictionaryValidator {
         duplicateDomainRows.push(row);
       }
     });
-
-
     const duplicatePairs = duplicateDomainRows.map((row) => row.domain + row.range);
 
     duplicateDomainRows.forEach((row) => {
@@ -38,7 +36,7 @@ class DictionaryValidator {
       const pair = row.domain + row.range;
       if (this.countInArray(duplicatePairs, pair) === 1) {
         // this duplicate domain different range
-        row.validation = `fork ${row.range}!`;
+        Object.assign(row, { ...row, validation: `fork ${row.range}!` });
       }
     });
     return rows;
@@ -50,7 +48,7 @@ class DictionaryValidator {
 
     rows.forEach((row) => {
       if (domains.includes(row.range) && ranges.includes(row.domain)) {
-        row.validation = `cycle ${row.range}!`;
+        Object.assign(row, { ...row, validation: `cycle ${row.range}!` });
       }
     });
   }
@@ -70,7 +68,7 @@ class DictionaryValidator {
 
       if (validRanges.includes(row.domain) || validDomains.includes(row.range)) {
         // chain!
-        row.validation = `chain ${row.domain} - ${row.range}!`;
+        Object.assign(row, { ...row, validation: `chain ${row.domain} - ${row.range}!` });
       }
     });
   }
